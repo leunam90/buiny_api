@@ -18,4 +18,15 @@ class UserController extends Controller
 
         return response()->json($data_response);
     }
+
+    public function remove_role(Request $request){
+        $user = User::find($request->user_id);
+        $user->roles()->detach($request->role_id);
+        $data_response = [
+            'message' => 'Role dettached to user succesfully',
+            'user'=> $user
+        ];
+
+        return response()->json($data_response);
+    }
 }

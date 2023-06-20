@@ -149,7 +149,8 @@ class AuthController extends Controller
         return response()->json([
             "message" => "User Profile",
             "user" => $user,
-            "employee" => $user->employee
+            "employee" => $user->employee,
+            "roles" => $user->roles
         ], Response::HTTP_OK);
     }
 
@@ -165,7 +166,8 @@ class AuthController extends Controller
                 'username' => $user->username,
                 'email' => $user->email,
                 'is_enabled' => $user->is_enable,
-                'employee' => $user->employee
+                'employee' => $user->employee,
+                "roles" => $user->roles
             ];
         }
 
