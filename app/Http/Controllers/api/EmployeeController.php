@@ -16,7 +16,7 @@ class EmployeeController extends Controller
     {
         $employees = Employee::all();
         $data = [];
-        foreach($employees as $employee){
+        foreach ($employees as $employee) {
             $data[] = [
                 'id' => $employee->id,
                 'first_name' => $employee->first_name,
@@ -44,7 +44,26 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try{
+            $employee = new Employee();
+            $employee->first_name = $request->first_name;
+            $employee->last_name = $request->last_name;
+            $employee->sur_name = $request->sur_name;
+            $employee->phone_number = $request->phone_number;
+            $employee->email = $request->email;
+            $employee->position = $request->position;
+            $employee->save();
+
+            return response()->json([
+                "message" => "Successfully created",
+                "employee" => $employee
+            ], Response::HTTP_OK);
+        }catch(\Exception $ex){
+            return response()->json([
+                "error" => true,
+                "message" => $ex->getMessage()
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
     }
 
     /**
@@ -52,7 +71,12 @@ class EmployeeController extends Controller
      */
     public function show(Employee $employee)
     {
-        //
+        $data = [
+            "message" => "Employee details",
+            "employee" => $employee
+        ];
+
+        return response()->json($data, Response::HTTP_OK);
     }
 
     /**
@@ -68,14 +92,45 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, Employee $employee)
     {
-        //
+        try{
+            $employee->first_name = $request->first_name;
+            $employee->last_name = $request->last_name;
+            $employee->sur_name = $request->sur_name;
+            $employee->phone_number = $request->phone_number;
+            $employee->email = $request->email;
+            $employee->position = $request->position;
+            $employee->save();
+
+            return response()->json([
+                "message" => "Successfully updated",
+                "employee" => $employee
+            ], Response::HTTP_OK);
+        }catch(\Exception $ex){
+            return response()->json([
+                "error" => true,
+                "message" => $ex->getMessage()
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Employee $employee)
+    public function destroy(Request $request, Employee $employee)
     {
-        //
+        try{
+            $employee->is_enable = $request->is_enable;
+            $employee->save();
+
+            return response()->json([
+                "message" => "Successfully deleted",
+                "employee" => $employee
+            ], Response::HTTP_OK);
+        }catch(\Exception $ex){
+            return response()->json([
+                "error" => true,
+                "message" => $ex->getMessage()
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
     }
 }

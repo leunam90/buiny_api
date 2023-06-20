@@ -19,12 +19,18 @@ Route::post('reset-password', [AuthController::class, 'reset_password']);
 Route::group(['middleware'=>['auth:sanctum']], function(){
     Route::get('user-profile', [AuthController::class, 'user_profile']);
     Route::get('users', [AuthController::class, 'all_users']);
+    Route::get('users/{user}', [UserController::class, 'show']);
+    Route::put('users/{user}', [UserController::class, 'update']);
     Route::post('logout', [AuthController::class, 'logout']);
-
     Route::post('/users/roles', [UserController::class, 'add_role']);
     Route::post('/users/roles/remove', [UserController::class, 'remove_role']);
 
-    Route::get('employees', [EmployeeController::class, 'index']);
+    //Employees
+    Route::get('/employees', [EmployeeController::class, 'index']);
+    Route::get('/employees/{employee}', [EmployeeController::class, 'show']);
+    Route::post('/employees', [EmployeeController::class, 'store']);
+    Route::put('/employees/{employee}', [EmployeeController::class, 'update']);
+    Route::delete('/employees/{employee}', [EmployeeController::class, 'destroy']);
 
     //Countries, States, Cities
     Route::get('/countries', [CountryController::class, 'index']);

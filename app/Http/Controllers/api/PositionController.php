@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use App\Models\Position;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class PositionController extends Controller
 {
@@ -31,17 +32,24 @@ class PositionController extends Controller
      */
     public function store(Request $request)
     {
-        $position = new Position;
-        $position->name = $request->name;
+        try {
+            $position = new Position;
+            $position->name = $request->name;
 
-        $position->save();
+            $position->save();
 
-        $data = [
-            "message" => "Position created successfully",
-            "position" => $position
-        ];
+            $data = [
+                "message" => "Position created successfully",
+                "position" => $position
+            ];
 
-        return response()->json($data);
+            return response()->json($data, Response::HTTP_OK);
+        } catch (\Exception $ex) {
+            return response()->json([
+                "error" => true,
+                "message" => $ex->getMessage()
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
     }
 
     /**

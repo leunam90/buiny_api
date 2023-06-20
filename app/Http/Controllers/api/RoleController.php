@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class RoleController extends Controller
 {
@@ -36,17 +37,26 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        $role = new Role;
-        $role->name = $request->name;
+        try {
+            $role = new Role;
+            $role->name = $request->name;
+            $role->save();
 
-        $role->save();
+            $data_response = [
+                'message' => 'Role created successfully',
+                'role' => $role
+            ];
 
-        $data_response = [
-            'message' => 'Role created successfully',
-            'role' => $role
-        ];
-
-        return response()->json($data_response);
+            return response()->json($data_response, Response::HTTP_OK);
+        } catch (\Exception $ex) {
+            return response()->json(
+                [
+                    "error" => true,
+                    "message" => $ex->getMessage()
+                ],
+                Response::HTTP_UNPROCESSABLE_ENTITY
+            );
+        }
     }
 
     /**

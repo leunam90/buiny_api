@@ -48,7 +48,7 @@ class AuthController extends Controller
         } catch (\Exception $exception) {
             return response()->json([
                 "message" => $exception
-            ], Response::HTTP_BAD_REQUEST);
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     }
 
@@ -108,7 +108,7 @@ class AuthController extends Controller
                 "token" => $token
             ], Response::HTTP_OK);
         } catch (\Exception $exception) {
-            return response()->json([], Response::HTTP_BAD_REQUEST);
+            return response()->json(["message" => $exception], Response::HTTP_BAD_REQUEST);
         }
     }
 
