@@ -4,6 +4,8 @@ use App\Http\Controllers\api\AuthController;
 use App\Http\Controllers\api\EmployeeController;
 use App\Http\Controllers\api\CountryController;
 use App\Http\Controllers\api\CityController;
+use App\Http\Controllers\api\CurrentBudgetController;
+use App\Http\Controllers\api\CustomerController;
 use App\Http\Controllers\api\PositionController;
 use App\Http\Controllers\api\RoleController;
 use App\Http\Controllers\api\StateController;
@@ -15,6 +17,7 @@ Route::post('signin', [AuthController::class, 'signin']);
 Route::post('login', [AuthController::class, 'login']);
 Route::post('forgot-password', [AuthController::class, 'forgot_password']);
 Route::post('reset-password', [AuthController::class, 'reset_password']);
+Route::get('current_budget', [CurrentBudgetController::class, 'index']);
 
 Route::group(['middleware'=>['auth:sanctum']], function(){
     Route::get('user-profile', [AuthController::class, 'user_profile']);
@@ -50,4 +53,18 @@ Route::group(['middleware'=>['auth:sanctum']], function(){
     Route::get('/roles/{role}', [RoleController::class, 'show']);
     Route::post('/roles', [RoleController::class, 'store']);
     Route::delete('/roles/{role}', [RoleController::class, 'destroy']);
+
+    //current budget
+    Route::post('/current_budget', [CurrentBudgetController::class, 'store']);
+    Route::put('/current_budget/{current_budget}', [CurrentBudgetController::class, 'update']);
+
+    //Customers
+    Route::post('/customers', [CustomerController::class, 'store']);
+    Route::get('/customers', [CustomerController::class, 'index']);
+    Route::get('/customers/{customer}', [CustomerController::class, 'show']);
+    Route::put('/customers/{customer}', [CustomerController::class, 'update']);
+    Route::delete('/customers/{customer}', [CustomerController::class, 'destroy']);
+
+
+
 });
