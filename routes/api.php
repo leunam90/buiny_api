@@ -42,10 +42,12 @@ Route::group(['middleware'=>['auth:sanctum']], function(){
     Route::get('/positions', [PositionController::class, 'index']);
     Route::get('/positions/{position}', [PositionController::class, 'show']);
     Route::post('/positions', [PositionController::class, 'store']);
+    Route::put('/positions/{position}', [PositionController::class, 'update']);
+    Route::delete('/positions/{position}', [PositionController::class, 'destroy']);
 
     //Roles
     Route::get('/roles', [RoleController::class, 'index']);
     Route::get('/roles/{role}', [RoleController::class, 'show']);
     Route::post('/roles', [RoleController::class, 'store']);
-    Route::put('/roles/{role}', [RoleController::class, 'update_role_status']);
+    Route::delete('/roles/{role}', [RoleController::class, 'destroy']);
 });

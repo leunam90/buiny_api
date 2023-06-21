@@ -12,9 +12,18 @@ class EmployeeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $employees = Employee::all();
+        $query = Employee::where('is_enable', true)->orderBy('first_name');
+        if($request->has('id')){
+            $query->where('first_name', 'LIKE', '%' . $request->id . '%');
+            $query->orWhere('last_name', 'LIKE', '%' . $request->id . '%');
+            $query->orWhere('sur_name', 'LIKE', '%' . $request->id . '%');
+            $query->orWhere('phone_number', 'LIKE', '%' . $request->id . '%');
+            $query->orWhere('email', 'LIKE', '%' . $request->id . '%');
+        }
+        $employees = $query->get();
+
         $data = [];
         foreach ($employees as $employee) {
             $data[] = [
@@ -24,6 +33,7 @@ class EmployeeController extends Controller
                 'sur_name' => $employee->sur_name,
                 'phone_number' => $employee->phone_number,
                 'email' => $employee->email,
+                'is_enable' => $employee->is_enable,
                 'user' => $employee->user
             ];
         }
@@ -116,11 +126,10 @@ class EmployeeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request, Employee $employee)
+    public function destroy(Employee $employee)
     {
         try{
-            $employee->is_enable = $request->is_enable;
-            $employee->save();
+            $employee->delete();
 
             return response()->json([
                 "message" => "Successfully deleted",

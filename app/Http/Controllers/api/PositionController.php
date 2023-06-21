@@ -12,11 +12,17 @@ class PositionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $positions = Position::all();
+        $query = Position::query()->orderBy('name');
 
-        return response()->json($positions);
+        if ($request->has('name')) {
+            $query->where('name', 'LIKE', '%' . $request->name . '%');
+        }
+
+        $positions = $query->get();
+
+        return response()->json($positions, Response::HTTP_OK);
     }
 
     /**
@@ -62,7 +68,7 @@ class PositionController extends Controller
             "position" => $position
         ];
 
-        return response()->json($data);
+        return response()->json($data, Response::HTTP_OK);
     }
 
     /**
@@ -78,7 +84,22 @@ class PositionController extends Controller
      */
     public function update(Request $request, Position $position)
     {
-        //
+        try {
+            $position->name = $request->name;
+            $position->save();
+
+            $data = [
+                "message" => "Successfully updated",
+                "position" => $position
+            ];
+            return response()->json($data, Response::HTTP_OK);
+        } catch (\Exception $ex) {
+            $data = [
+                "error" => true,
+                "message" => $ex->getMessage()
+            ];
+            return response()->json($data, Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
     }
 
     /**
@@ -86,6 +107,22 @@ class PositionController extends Controller
      */
     public function destroy(Position $position)
     {
-        //
+        try {
+            $position->delete();
+
+            $data = [
+                "message" => "Succesfully deleted",
+                "position" => $position
+            ];
+
+            return response()->json($data, Response::HTTP_OK);
+        } catch (\Exception $ex) {
+            $data = [
+                "error" => true,
+                "message" => $ex->getMessage()
+            ];
+
+            return response()->json($data, Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
     }
 }

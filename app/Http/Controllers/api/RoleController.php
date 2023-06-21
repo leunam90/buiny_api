@@ -69,7 +69,7 @@ class RoleController extends Controller
             "role" => $role
         ];
 
-        return response()->json($data);
+        return response()->json($data, Response::HTTP_OK);
     }
 
     /**
@@ -92,7 +92,19 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
-        //
+        try {
+            $role->delete();
+
+            return response()->json([
+                "message" => "Successfully deleted",
+                "role" => $role
+            ], Response::HTTP_OK);
+        } catch (\Exception $ex) {
+            return response()->json([
+                "error" => true,
+                "message" => $ex->getMessage()
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
     }
 
     public function update_role_status(Request $request, Role $role)
