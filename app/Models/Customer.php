@@ -10,6 +10,6 @@ class Customer extends Model
     use HasFactory;
 
     public function address(){
-        return $this->hasOne(Address::class);
+        return $this->hasOne(FiscalAddress::class);
     }
 }

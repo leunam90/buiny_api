@@ -15,14 +15,14 @@ return new class extends Migration
             $table->id();
             $table->string('street');
             $table->string('ext_number');
-            $table->string('int_number');
+            $table->string('int_number')->nullable();
             $table->string('zip_code');
             $table->string('neighborhood');
             $table->string('city');
             $table->string('state');
             $table->string('country');
             $table->unsignedBigInteger('customer_id')->nullable();
-            $table->foreign('customer_id')->references('id')->on('customers');
+            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
             $table->timestamps();
         });
     }

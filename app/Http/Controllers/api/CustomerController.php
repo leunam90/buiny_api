@@ -53,18 +53,15 @@ class CustomerController extends Controller
             $customer->fiscal_regimen = $request->fiscal_regimen;
             $customer->save();
 
-            $fiscal_address = $request->address;
-
-
             $address = new FiscalAddress();
-            $address->street = $fiscal_address->street;
-            $address->ext_number = $fiscal_address->ext_number;
-            $address->int_number = $fiscal_address->int_number;
-            $address->zip_code = $fiscal_address->zip_code;
-            $address->neighborhood = $fiscal_address->neighborhood;
-            $address->city = $fiscal_address->city;
-            $address->state = $fiscal_address->state;
-            $address->country = $fiscal_address->country;
+            $address->street = $request->street;
+            $address->ext_number = $request->ext_number;
+            $address->int_number = $request->int_number;
+            $address->zip_code = $request->zip_code;
+            $address->neighborhood = $request->neighborhood;
+            $address->city = $request->city;
+            $address->state = $request->state;
+            $address->country = $request->country;
             $address->customer_id = $customer->id;
             $address->save();
 
