@@ -7,6 +7,7 @@ use App\Http\Controllers\api\CityController;
 use App\Http\Controllers\api\CurrentBudgetController;
 use App\Http\Controllers\api\CustomerController;
 use App\Http\Controllers\api\PositionController;
+use App\Http\Controllers\api\ProjectLayoutController;
 use App\Http\Controllers\api\RoleController;
 use App\Http\Controllers\api\StateController;
 use App\Http\Controllers\api\UserController;
@@ -65,6 +66,8 @@ Route::group(['middleware'=>['auth:sanctum']], function(){
     Route::put('/customers/{customer}', [CustomerController::class, 'update']);
     Route::delete('/customers/{customer}', [CustomerController::class, 'destroy']);
 
+    //Projects layouts
+    Route::get('/project_layouts', [ProjectLayoutController::class, 'index']);
 
 
 });

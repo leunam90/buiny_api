@@ -21,7 +21,7 @@ class RoleController extends Controller
         }
 
         $roles = $query->get();
-        return response()->json($roles);
+        return response()->json($roles, Response::HTTP_OK);
     }
 
     /**
