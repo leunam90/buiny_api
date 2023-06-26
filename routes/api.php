@@ -7,6 +7,7 @@ use App\Http\Controllers\api\CityController;
 use App\Http\Controllers\api\CurrentBudgetController;
 use App\Http\Controllers\api\CustomerController;
 use App\Http\Controllers\api\PositionController;
+use App\Http\Controllers\api\PreSaleOrderController;
 use App\Http\Controllers\api\ProjectLayoutController;
 use App\Http\Controllers\api\RoleController;
 use App\Http\Controllers\api\StateController;
@@ -68,6 +69,10 @@ Route::group(['middleware'=>['auth:sanctum']], function(){
 
     //Projects layouts
     Route::get('/project_layouts', [ProjectLayoutController::class, 'index']);
+
+    //Pre sales
+    Route::get('/pre_sales', [PreSaleOrderController::class, 'index']);
+    Route::post('/pre_sales', [PreSaleOrderController::class, 'store']);
 
 
 });

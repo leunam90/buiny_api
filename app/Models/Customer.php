@@ -14,6 +14,6 @@ class Customer extends Model
     }
 
     public function pre_sales_order(){
-        return $this->hasMany('');
+        return $this->hasMany(PreSaleOrder::class);
     }
 }

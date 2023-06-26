@@ -14,4 +14,8 @@ class ProjectLayout extends Model
     public function stages(){
         return $this->hasMany(ProjectStageLayout::class, 'project_id');
     }
+
+    public function pre_sales(){
+        return $this->belongsToMany(PreSaleOrder::class, 'pre_sales_orders_items');
+    }
 }

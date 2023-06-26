@@ -9,5 +9,5 @@ class PreSaleItem extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['id', 'pre_sales_orders_id', 'item_id'];
+    protected $fillable = ['id', 'pre_sale_order_id', 'project_layout_id', 'quantity'];
 }

@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pre_sales_order_items', function (Blueprint $table) {
+        Schema::create('pre_sales_orders_items', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('pre_sales_orders_id');
-            $table->foreign('pre_sales_orders_id')->references('id')->on('pre_sales_orders')->onDelete('cascade');
-            $table->unsignedInteger('item_id');
-            $table->foreign('item_id')->references('id')->on('project_layout')->onDelete('cascade');
+            $table->unsignedBigInteger('pre_sale_order_id');
+            $table->foreign('pre_sale_order_id')->references('id')->on('pre_sales_orders')->onDelete('cascade');
+            $table->unsignedBigInteger('project_layout_id');
+            $table->integer('quantity');
+            //$table->foreign('project_layout_id')->references('id')->on('project_layout')->onDelete('cascade');
+            //$table->foreignId('project_layout_id')->nullable()->constrained('project_layout')->onDelete('set null');
             $table->timestamps();
         });
     }

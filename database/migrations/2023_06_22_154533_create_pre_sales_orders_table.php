@@ -13,8 +13,13 @@ return new class extends Migration
     {
         Schema::create('pre_sales_orders', function (Blueprint $table) {
             $table->id();
-            $table->date('transaction_date');
+            $table->timestamp('transaction_date');
+            $table->string('transaction_number');
             $table->integer('document_number');
+            $table->unsignedBigInteger('customer_id');
+            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
+            $table->string('internal_status')->default('pending');
+            $table->string('status')->default('pending');
             $table->decimal('amount');
             $table->decimal('tax_amount');
             $table->decimal('total');
