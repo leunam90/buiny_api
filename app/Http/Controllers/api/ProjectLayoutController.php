@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 class ProjectLayoutController extends Controller
 {
     public function index(Request $request){
-        $query = ProjectLayout::query();
+        $query = ProjectLayout::query()->orderBy('name');
 
         if($request->has('id')){
 

@@ -73,6 +73,7 @@ Route::group(['middleware'=>['auth:sanctum']], function(){
     //Pre sales
     Route::get('/pre_sales', [PreSaleOrderController::class, 'index']);
     Route::post('/pre_sales', [PreSaleOrderController::class, 'store']);
+    Route::get('/current_document_number', [PreSaleOrderController::class, 'get_current_doc_number']);
 
 
 });
