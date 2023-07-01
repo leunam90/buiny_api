@@ -16,4 +16,8 @@ class SalesOrder extends Model
     public function customer(){
         return $this->belongsTo(Customer::class);
     }
+
+    public function pre_sales_order(){
+        return $this->belongsTo(PreSaleOrder::class);
+    }
 }

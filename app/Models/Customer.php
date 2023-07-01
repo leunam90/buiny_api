@@ -13,7 +13,11 @@ class Customer extends Model
         return $this->hasOne(FiscalAddress::class);
     }
 
-    public function pre_sales_order(){
+    public function pre_sales_orders(){
         return $this->hasMany(PreSaleOrder::class);
+    }
+
+    public function sales_orders(){
+        return $this->hasMany(SalesOrder::class);
     }
 }

@@ -10,6 +10,7 @@ use App\Http\Controllers\api\PositionController;
 use App\Http\Controllers\api\PreSaleOrderController;
 use App\Http\Controllers\api\ProjectLayoutController;
 use App\Http\Controllers\api\RoleController;
+use App\Http\Controllers\api\SalesOrderController;
 use App\Http\Controllers\api\StateController;
 use App\Http\Controllers\api\UserController;
 use Illuminate\Http\Request;
@@ -74,6 +75,9 @@ Route::group(['middleware'=>['auth:sanctum']], function(){
     Route::get('/pre_sales', [PreSaleOrderController::class, 'index']);
     Route::post('/pre_sales', [PreSaleOrderController::class, 'store']);
     Route::get('/current_document_number', [PreSaleOrderController::class, 'get_current_doc_number']);
+
+    Route::get('/sales_orders', [SalesOrderController::class, 'index']);
+    Route::post('/sales_orders', [SalesOrderController::class, 'store']);
 
 
 });

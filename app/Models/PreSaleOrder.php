@@ -18,4 +18,8 @@ class PreSaleOrder extends Model
     public function customer(){
         return $this->belongsTo(Customer::class);
     }
+
+    public function sales_order(){
+        return $this->hasOne(SalesOrder::class);
+    }
 }
