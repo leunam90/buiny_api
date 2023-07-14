@@ -68,12 +68,15 @@ class AuthController extends Controller
         $user = User::where('email', $request['email'])->firstOrFail();
         $token = $user->createToken('auth_token')->plainTextToken;
         $cookie = cookie('cookie_token', $token, 60 * 24);
+        $employee = $user->employee;
 
         return response([
             "message" => "Access granted",
             "access_token" => $token,
             "token_type" => "Bearer",
-            "user" => $user
+            "user" => $user,
+            "name" => $employee->first_name,
+            "last_name" => $employee->last_name,
         ], Response::HTTP_OK)->withoutCookie($cookie);
     }
 
